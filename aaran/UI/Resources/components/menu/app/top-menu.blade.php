@@ -66,7 +66,6 @@ shadow-md print:hidden">
                             <x-Ui::jet.dropdown-link
                                 {{--                                href="{{ route('profile.show') }}"--}}
                             >
-                                {{ __('Profile') }}
                             </x-Ui::jet.dropdown-link>
 
                             {{--                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())--}}
