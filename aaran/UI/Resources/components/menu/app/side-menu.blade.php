@@ -24,6 +24,7 @@
             x-data="{selected:null}">
 
 
+            <x-Ui::menu.app.sub.inventory/>
             <x-Ui::menu.app.sub.logout/>
 
         </ul>
