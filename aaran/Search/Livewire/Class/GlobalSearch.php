@@ -2,7 +2,10 @@
 
 namespace Aaran\Search\Livewire\Class;
 
+use App\Models\SearchFavorite;
+use App\Models\SearchHistory;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class GlobalSearch extends Component
@@ -10,13 +13,85 @@ class GlobalSearch extends Component
     public $query = '';
     public $results = [];
 
+    public $favorites = [];
+    public $history = [];
+    public bool $searchInitialized = false;
+
+    public function mount()
+    {
+        $userId = Auth::id();
+        $this->favorites = SearchFavorite::where('user_id', $userId)->get();
+        $this->history = SearchHistory::where('user_id', $userId)->latest()->take(5)->get();
+    }
+
     public function updatedQuery()
     {
-        $this->results = User::where('name', 'like', "%{$this->query}%")
-            ->orWhere('email', 'like', "%{$this->query}%")
-            ->take(10)
-            ->get()
-            ->toArray(); // Replace with your actual searchable models
+        $query = trim($this->query);
+
+        // Track that user has started interacting
+        $this->searchInitialized = true;
+
+        $userId = Auth::id();
+
+        // Save to history only if query is >= 3 chars and not already saved
+        if (strlen($query) >= 3) {
+            $alreadyExists = SearchHistory::where('user_id', $userId)
+                ->where('query', $query)
+                ->exists();
+
+            if (!$alreadyExists) {
+                SearchHistory::create([
+                    'user_id' => $userId,
+                    'query' => $query,
+                ]);
+            }
+        }
+        if (strlen($query) >= 1) {
+            // Run search always (even if short query)
+            $this->results = User::where('name', 'like', "%{$query}%")
+                ->orWhere('email', 'like', "%{$query}%")
+                ->take(10)
+                ->get()
+                ->toArray();
+        }
+    }
+
+
+    public function addToFavorites($type, $name)
+    {
+        SearchFavorite::firstOrCreate([
+            'type' => $type,
+            'query' => $name,
+            'user_id' => Auth::id(),
+        ]);
+
+        $this->favorites = SearchFavorite::where('user_id', Auth::id())->get();
+    }
+
+    public function removeFromFavorites($id)
+    {
+        SearchFavorite::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        // Refresh the favorites list
+        $this->favorites = SearchFavorite::where('user_id', Auth::id())->get();
+    }
+
+    public function removeFromHistory($id)
+    {
+        SearchHistory::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        $this->history = SearchHistory::where('user_id', Auth::id())->get();
+    }
+
+
+    public function clearHistory()
+    {
+        SearchHistory::truncate();
+        $this->history = [];
     }
 
     public function render()

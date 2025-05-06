@@ -17,7 +17,7 @@
 </head>
 <body class="font-sans antialiased">
 
-<div class="w-full bg-gray-50">
+<div class="w-full bg-neutral-50">
     <!-- Page Content -->
     <main class="w-full">
         {{ $slot }}

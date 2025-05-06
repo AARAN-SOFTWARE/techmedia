@@ -18,18 +18,18 @@
     <!-- Styles -->
     @fluxAppearance
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-neutral-50 h-screen">
 {{--<x-banner/>--}}
 
 <div x-data="{ sidebarOpen: false }" @keydown.window.escape="sidebarOpen=false"
-     class="min-h-screen bg-white print:bg-white">
+     class="min-h-screen bg-neutral-50 print:bg-white">
     <div class="flex-1">
 
         <x-Ui::menu.app.top-menu>{{$header}}</x-Ui::menu.app.top-menu>
         <x-Ui::menu.app.side-menu/>
 
         <!-- Page Content -->
-        <main class=" bg-[#F8F8FF] print:bg-white sm:p-5 p-2 ">
+        <main class=" bg-neutral-50 print:bg-white sm:p-5 p-2 ">
             {{ $slot }}
         </main>
 

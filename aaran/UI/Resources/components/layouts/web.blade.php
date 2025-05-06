@@ -22,7 +22,7 @@
 <body class="font-sans antialiased">
 {{--        <x-banner />--}}
 
-<div class="w-full bg-gray-50">
+<div class="w-full bg-neutral-50">
 
     <x-Ui::menu.web.top-menu-2/>
 
