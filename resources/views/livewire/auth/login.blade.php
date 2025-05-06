@@ -1,10 +1,8 @@
-<div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
-
+<div class="flex flex-col gap-6 mt-8">
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
 
-    <form wire:submit="login" class="flex flex-col gap-6">
+    <form wire:submit="login" class="flex flex-col gap-6  border border-neutral-200 shadow-xl rounded-2xl p-5">
         <!-- Email Address -->
         <flux:input
             wire:model="email"
