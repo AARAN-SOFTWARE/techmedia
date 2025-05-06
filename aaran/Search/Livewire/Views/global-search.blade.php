@@ -17,11 +17,11 @@
             <x-Ui::icons.icon-fill :iconfill="'search'" class="w-5 h-auto block text-neutral-400"/>
                 <input type="text"
                        x-ref="searchInput"
-                       wire:model.debounce.300ms="query"
+                       wire:model.live.debounce.300ms="query"
                        class="w-full p-2 mb-2 bg-transparent focus:outline-none focus:ring-0 focus:border-none border-none ring-0 hover:ring-0 hover:border-none"
                        placeholder="Search..."
                        x-ref="searchInput">
-            <span class="text-gray-400 rounded-xs text-xs p-0.5 border border-neutral-300">Esc</span>
+            <span class="text-gray-400 rounded-md text-xs p-0.5 border border-neutral-300">Esc</span>
             </div>
             <div class="w-full border-b border-b-gray-200 h-1">&nbsp;</div>
             <ul>

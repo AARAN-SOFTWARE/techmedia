@@ -1,7 +1,8 @@
 <?php
 
-namespace Aaran\UI\Livewire\Class;
+namespace Aaran\Search\Livewire\Class;
 
+use App\Models\User;
 use Livewire\Component;
 
 class GlobalSearch extends Component
@@ -11,7 +12,7 @@ class GlobalSearch extends Component
 
     public function updatedQuery()
     {
-        $this->results = \App\Models\User::where('name', 'like', "%{$this->query}%")
+        $this->results = User::where('name', 'like', "%{$this->query}%")
             ->orWhere('email', 'like', "%{$this->query}%")
             ->take(10)
             ->get()
@@ -20,6 +21,6 @@ class GlobalSearch extends Component
 
     public function render()
     {
-        return view('comp::global-search');
+        return view('search::global-search');
     }
 }
