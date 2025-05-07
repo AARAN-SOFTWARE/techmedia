@@ -17,6 +17,7 @@ class FrappeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Livewire::component('frappe::stock-list', Class\StockList::class);
+        Livewire::component('frappe::stock-balance-query', Class\StockBalanceQuery::class);
 
     }
 
