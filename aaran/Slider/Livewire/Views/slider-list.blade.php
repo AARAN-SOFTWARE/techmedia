@@ -21,10 +21,6 @@
                     Name
                 </x-Ui::table.header-text>
 
-                <x-Ui::table.header-text sortIcon="none" :left="true">header</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" :left="true">back colour</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" :left="true">Tagline</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" :left="true">Tagline 2</x-Ui::table.header-text>
                 <x-Ui::table.header-text sortIcon="none" :left="true">Link name</x-Ui::table.header-text>
                 <x-Ui::table.header-text sortIcon="none" :left="true">Link to</x-Ui::table.header-text>
 
@@ -46,14 +42,6 @@
 
                         <x-Ui::table.cell-link  :href="$link" left>{{$row->name}}</x-Ui::table.cell-link>
 
-                        <x-Ui::table.cell-link :href="$link" left>{{$row->header}}</x-Ui::table.cell-link>
-
-                        <x-Ui::table.cell-link  :href="$link" left>{{$row->bg_colour}}</x-Ui::table.cell-link>
-
-                        <x-Ui::table.cell-link  :href="$link" left>{{$row->tagline}}</x-Ui::table.cell-link>
-
-                        <x-Ui::table.cell-link :href="$link" left>{{$row->tagline_2}}</x-Ui::table.cell-link>
-
                         <x-Ui::table.cell-link  :href="$link" left>{{$row->link_name}}</x-Ui::table.cell-link>
 
                         <x-Ui::table.cell-link  :href="$link" left>{{$row->link_to}}</x-Ui::table.cell-link>
@@ -74,31 +62,14 @@
         <!-- Create/ Edit Popup --------------------------------------------------------------------------------------->
 
         <x-Ui::forms.create :id="$vid">
-            <div class="flex flex-col gap-3">
-
-                <div>
-                    <x-Ui::input.floating wire:model="name" label="Slider Name"/>
-                    <x-Ui::input.error-text wire:model="name"/>
-                </div>
-
-                <x-Ui::input.floating wire:model="header" label="Header"/>
-
-                <x-Ui::input.floating wire:model="bg_colour" label="Back colour"/>
-
-                <x-Ui::input.floating wire:model="txt_colour" label="Text colour"/>
-
-                <x-Ui::input.floating wire:model="fill_colour" label="Fill colour"/>
-
-                <x-Ui::input.floating wire:model="tagline" label="tagline"/>
-
-                <x-Ui::input.floating wire:model="tagline_2" label="tagline_2"/>
-
-                <x-Ui::input.floating wire:model="link_name" label="link name"/>
-
-                <x-Ui::input.floating wire:model="link_to" label="link to"/>
-
+            <div class="mb-4">
+                <x-Ui::input.floating wire:model="vname" label="State Name"/>
+                <x-Ui::input.error-text wire:model="vname"/>
             </div>
+            <x-Ui::input.floating wire:model="state_code" label="State Code"/>
         </x-Ui::forms.create>
+
+
 
     </x-Ui::forms.m-panel>
 </div>

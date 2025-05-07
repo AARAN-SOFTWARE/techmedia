@@ -156,5 +156,5 @@ return [
     |
     */
 
-    'pagination_theme' => 'Ui::pagination.tailwind',
+    'pagination_theme' => 'tailwind',
 ];
