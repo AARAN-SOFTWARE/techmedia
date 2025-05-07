@@ -9,41 +9,39 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-class SliderList extends Component
+class SliderQuoteList extends Component
 {
     use ComponentStateTrait;
 
     #[Validate]
-    public string $name = '';
+    public string $slider_id = '';
     public string $header = '';
     public string $bg_colour = '';
     public string $txt_colour = '';
     public string $fill_colour = '';
     public string $tagline = '';
     public string $tagline_2 = '';
-    public string $link_name = '';
-    public string $link_to = '';
     public bool $active_id = true;
 
     public function rules(): array
     {
         return [
-            'name' => 'required' . ($this->vid ? '' : "|unique:sliders,name"),
+            'header' => 'required',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => ':attribute is missing.',
-            'name.unique' => 'This :attribute is already created.',
+            'header.required' => ':attribute is missing.',
+            'header.unique' => 'This :attribute is already created.',
         ];
     }
 
     public function validationAttributes(): array
     {
         return [
-            'name' => 'Slider name',
+            'header' => 'Header',
         ];
     }
 
@@ -51,14 +49,18 @@ class SliderList extends Component
     {
         $this->validate();
 
-        Slider::query()->updateOrCreate(
-            ['id' => $this->vid],
-            [
-                'name' => Str::ucfirst($this->name),
-                'link_name' => $this->link_name,
-                'link_to' => $this->link_to,
-                'active_id' => $this->active_id,
-            ],
+        SliderShow::where('slider_id', $this->vid)->delete();
+
+        SliderQuotes::query()->create([
+            'slider_id' => $this->vid,
+            'header' => $this->header,
+            'bg_colour' => $this->bg_colour,
+            'txt_colour' => $this->txt_colour,
+            'fill_colour' => $this->fill_colour,
+            'tagline' => $this->tagline,
+            'tagline_2' => $this->tagline_2,
+            'active_id' => $this->active_id,
+        ],
         );
 
         $this->dispatch('notify', ...['type' => 'success', 'content' => ($this->vid ? 'Updated' : 'Saved') . ' Successfully']);
@@ -68,7 +70,13 @@ class SliderList extends Component
     public function clearFields(): void
     {
         $this->vid = null;
-        $this->name = '';
+        $this->slider_id = '';
+        $this->header = '';
+        $this->bg_colour = '';
+        $this->txt_colour = '';
+        $this->fill_colour = '';
+        $this->tagline = '';
+        $this->tagline_2 = '';
         $this->link_name = '';
         $this->link_to = '';
         $this->active_id = true;
@@ -79,7 +87,13 @@ class SliderList extends Component
     {
         if ($obj = Slider::query()->find($id)) {
             $this->vid = $obj->id;
-            $this->name = $obj->name;
+            $this->slider_id = $obj->name;
+            $this->header = $obj->header;
+            $this->bg_colour = $obj->bg_colour;
+            $this->txt_colour = $obj->txt_colour;
+            $this->fill_colour = $obj->fill_colour;
+            $this->tagline = $obj->tagline;
+            $this->tagline_2 = $obj->tagline_2;
             $this->link_name = $obj->link_name;
             $this->link_to = $obj->link_to;
             $this->active_id = $obj->active_id;

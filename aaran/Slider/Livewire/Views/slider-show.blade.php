@@ -115,33 +115,20 @@
 <div class="swiper mySwiper h-screen group">
     <div class="swiper-wrapper">
 
-        @foreach(Aaran\Assets\Helper\SlideQuotes::all() as $slide)
-            <div class="swiper-slide {{ $slide['color']['bg'] }}" data-in="fade-in">
-                <div class="h-screen flex items-center justify-center w-full animate__animated wow animate__bounceInDown">
+        @foreach($sliders as $row)
+            <div class="swiper-slide {{ $row->bg_colour }}" data-in="fade-in">
+                <div
+                    class="h-screen flex items-center justify-center w-full animate__animated wow animate__bounceInDown">
                     <div class="text-center space-y-6" data-animatable>
                         <h1
                             class="fade-in mx-auto max-w-7xl font-display caveat-brush-regular text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
-                            {!! Aaran\Assets\Helper\SlideQuotes::highlightKeyword($slide['h1'], $slide['color']) !!}
+                            {!! \Aaran\Slider\Livewire\Class\SliderShow::highlightKeyword($row->header, $row->txt_colour, $row->fill_colour) !!}
 
                         </h1>
 
-                        @foreach($slide['p'] as $para)
-                            <p class="text-xl text-neutral-600" data-animatable>{{ $para }}</p>
-                        @endforeach
+                        <p class="text-xl text-neutral-600" data-animatable>{{ $row->tagline }}</p>
+                        <p class="text-xl text-neutral-600" data-animatable>{{ $row->tagline_2 }}</p>
 
-                        <div class="mt-10 flex justify-center gap-x-6" data-animatable>
-                            <a class="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 text-white hover:bg-slate-700 hover:text-slate-100 active:bg-slate-800 active:text-slate-300 focus-visible:outline-slate-900"
-                               href="/register">Get 3 months free</a>
-                            <a class="group inline-flex ring-1 items-center justify-center rounded-full py-2 px-4 text-sm focus:outline-hidden ring-slate-200 text-slate-700 hover:text-slate-900 hover:ring-slate-300 active:bg-slate-100 active:text-slate-600 focus-visible:outline-blue-600 focus-visible:ring-slate-300"
-                               href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-                                <svg aria-hidden="true"
-                                     class="h-3 w-3 flex-none fill-blue-600 group-active:fill-current">
-                                    <path
-                                        d="m9.997 6.91-7.583 3.447A1 1 0 0 1 1 9.447V2.553a1 1 0 0 1 1.414-.91L9.997 5.09c.782.355.782 1.465 0 1.82Z"></path>
-                                </svg>
-                                <span class="ml-3">Watch video</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

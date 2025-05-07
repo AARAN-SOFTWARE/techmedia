@@ -5,7 +5,7 @@ namespace Aaran\Slider\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class SlideQuotes extends Model
+class SliderQuotes extends Model
 {
     protected $guarded = [];
     public function scopeActive(Builder $query, $status = '1'): Builder
