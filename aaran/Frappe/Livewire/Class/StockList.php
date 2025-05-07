@@ -14,24 +14,16 @@ class StockList extends Component
     use ComponentStateTrait;
 
 
-
     public $selected = 'Wireless Mouse';
     public $stockData = [];
 
     protected ErpNextService $erpNextService;
 
-//    public function updatedSelected(): void
-//    {
-//        $this->getList();
-//    }
-
-
     public function getList()
     {
-        return Inventory::when($this->searches, fn($query) => $query->searchByName($this->searches))
+        return Inventory::search(trim($this->searches))
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);
-
     }
 
     public function syncStock(): void

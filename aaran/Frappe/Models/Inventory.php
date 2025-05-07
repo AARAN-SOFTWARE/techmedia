@@ -13,12 +13,46 @@ class Inventory extends Model
 
     protected $guarded = [];
 
-    public function scopeSearchByName(Builder $query, string $search): Builder
+    public static function search(string $searches)
     {
-        return $query->where('item', 'like', "%$search%")
-            ->orWhere('item_group', 'like', "%$search%")
-            ->orWhere('brand', 'like', "%$search%");
+        $query = static::query();
+
+        $fieldMap = [
+            'ic' => 'item_code',
+            'ig' => 'item_group',
+            'br'  => 'brand',
+            'item' => 'item_name',
+            // Add more shortcodes as needed
+        ];
+
+        $tokens = preg_split('/\s+/', trim($searches));
+
+        foreach ($tokens as $token) {
+            if (str_contains($token, ':')) {
+                [$field, $value] = explode(':', $token, 2);
+
+                // Map shortcode to actual column
+                $column = $fieldMap[$field] ?? $field;
+
+                // Check if the resolved column is valid
+                if (in_array($column, ['item_code', 'item_group', 'brand', 'item_name'])) {
+                    $query->where($column, 'like', '%' . $value . '%');
+                }
+            } else {
+                // Fallback for general keyword
+                $query->where(function ($q) use ($token) {
+                    $q->where('item_name', 'like', '%' . $token . '%')
+                        ->orWhere('item_group', 'like', '%' . $token . '%')
+                        ->orWhere('brand', 'like', '%' . $token . '%')
+                        ->orWhere('item_code', 'like', '%' . $token . '%');
+                });
+            }
+        }
+
+        return $query;
     }
+
+
 
     protected static function newFactory(): InventoryFactory
     {

@@ -1,6 +1,8 @@
 <div x-data="{ open: false }"
      @keydown.window.ctrl.k.prevent="open = true; $nextTick(() => $refs.searchInput.focus())"
      @keydown.window.meta.k.prevent="open = true; $nextTick(() => $refs.searchInput.focus())"
+     x-cloak
+     x-trap.inert.noscroll="open"
      @keydown.escape.window="
          open = false;
          $wire.set('query', '');
@@ -26,14 +28,14 @@
                        x-ref="searchInput">
                 <span class="text-gray-400 rounded-md text-xs p-0.5 border border-neutral-300">Esc</span>
             </div>
-            <div class="w-full border-b border-b-gray-200 h-1">&nbsp;</div>
-            <ul>
+            <div class="w-full border-b border-b-gray-200 overflow-y-auto h-1">&nbsp;</div>
+            <ul class="">
                 @forelse ($results as $item)
                     <li class="p-2 border-b flex justify-between">
-                        {{ $item['name'] ?? 'N/A' }}
+                        {{ $item['item_name'] ?? 'N/A' }}
 
                         <div class="cursor-pointer group"
-                             wire:click.prevent='addToFavorites("user", @json($item["name"]))'>
+                             wire:click.prevent='addToFavorites("user", @json($item["item_name"]))'>
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  fill="none"
                                  viewBox="0 0 24 24"

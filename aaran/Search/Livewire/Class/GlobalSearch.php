@@ -2,6 +2,7 @@
 
 namespace Aaran\Search\Livewire\Class;
 
+use Aaran\Frappe\Models\Inventory;
 use App\Models\SearchFavorite;
 use App\Models\SearchHistory;
 use App\Models\User;
@@ -47,12 +48,11 @@ class GlobalSearch extends Component
             }
         }
         if (strlen($query) >= 1) {
-            // Run search always (even if short query)
-            $this->results = User::where('name', 'like', "%{$query}%")
-                ->orWhere('email', 'like', "%{$query}%")
-                ->take(10)
+            $this->results = Inventory::search($query)
                 ->get()
                 ->toArray();
+
+
         } else {
             $this->results = [];
         }
