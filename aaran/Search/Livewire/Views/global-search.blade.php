@@ -29,10 +29,11 @@
                 <span class="text-gray-400 rounded-md text-xs p-0.5 border border-neutral-300">Esc</span>
             </div>
             <div class="w-full border-b border-b-gray-200 overflow-y-auto h-1">&nbsp;</div>
-            <ul class="">
-                @forelse ($results as $item)
-                    <li class="p-2 border-b flex justify-between">
-                        {{ $item['item_name'] ?? 'N/A' }}
+            <ul class="max-h-[30rem] overflow-y-auto divide-y scrollbar-thin overscroll-contain divide-gray-100">
+            @forelse ($results as $item)
+                    <li class="p-2 border-b flex justify-between hover:bg-amber-100">
+                        <a href="{{route('stock-show',$item['id'])}}"
+                            class="cursor-pointer" >{{ $item['item_name'] ?? 'N/A' }}</a>
 
                         <div class="cursor-pointer group"
                              wire:click.prevent='addToFavorites("user", @json($item["item_name"]))'>
@@ -50,8 +51,6 @@
                                          0 01.416-1.28l3.548-.516 2.62-2.655z"/>
                             </svg>
                         </div>
-
-
                     </li>
                 @empty
                     <li class="p-2 text-gray-500">No results</li>

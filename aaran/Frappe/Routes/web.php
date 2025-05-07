@@ -5,4 +5,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/stock-list', Class\StockList::class)->name('stock-list');
+    Route::get('/stock-show/{id}', Class\StockShow::class)->name('stock-show');
 });
