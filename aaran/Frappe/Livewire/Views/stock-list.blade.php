@@ -13,7 +13,7 @@
 
                 <x-Ui::input.search-bar wire:model.live.debounce.300ms="searches"
                                         wire:keydown.escape="$set('searches', '')" label="Search"/>
-{{--                <x-Ui::input.toggle-filter :show-filters="$showFilters"/>--}}
+                {{--                <x-Ui::input.toggle-filter :show-filters="$showFilters"/>--}}
             </div>
 
             <div class="flex justify-between">
@@ -24,7 +24,7 @@
             </div>
         </div>
 
-{{--        <x-Ui::input.advance-search :show-filters="$showFilters"/>--}}
+        {{--        <x-Ui::input.advance-search :show-filters="$showFilters"/>--}}
 
         <x-Ui::table.form>
             <x-slot:table_header>
@@ -52,19 +52,24 @@
             <x-slot:table_body>
 
                 @forelse($list as $row)
+
+                    @php
+                        $link = route('stock-show', $row->id);
+                    @endphp
+
                     <x-Ui::table.row>
                         {{--<x-Ui::table.cell-text>{{ $loop->iteration }}</x-Ui::table.cell-text>--}}
 
-                        <x-Ui::table.cell-text>{{ $row->item_code }}</x-Ui::table.cell-text>
-                        <x-Ui::table.cell-text left>{{ $row->item_name}}</x-Ui::table.cell-text>
-                        <x-Ui::table.cell-text left>{{ $row->brand}}</x-Ui::table.cell-text>
-                        <x-Ui::table.cell-text left>{{ $row->item_group}}</x-Ui::table.cell-text>
-                        <x-Ui::table.cell-text>{{ $row->warehouse }}</x-Ui::table.cell-text>
-                        <x-Ui::table.cell-text>{{ $row->opening_qty }}</x-Ui::table.cell-text>
-                        <x-Ui::table.cell-text right>{{ $row->opening_val }}</x-Ui::table.cell-text>
-                        <x-Ui::table.cell-text>{{ $row->balance_qty }}</x-Ui::table.cell-text>
-                        <x-Ui::table.cell-text right>{{ $row->balance_val }}</x-Ui::table.cell-text>
-                        <x-Ui::table.cell-text right>{{ $row->valuation_rate }}</x-Ui::table.cell-text>
+                        <x-Ui::table.cell-link :href="$link">{{ $row->item_code }}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link" left>{{ $row->item_name}}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link" left>{{ $row->brand}}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link" left>{{ $row->item_group}}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link">{{ $row->warehouse }}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link">{{ $row->opening_qty }}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link" right>{{ $row->opening_val }}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link">{{ $row->balance_qty }}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link" right>{{ $row->balance_val }}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link" right>{{ $row->valuation_rate }}</x-Ui::table.cell-link>
                     </x-Ui::table.row>
                 @empty
                     <x-Ui::table.row>
