@@ -59,79 +59,74 @@
 
                 @if(empty($query))
                     <div>
-                        @if($favorites->isNotEmpty())
+                    <div class="flex flex-row w-full gap-2">
+                        <div class="w-full border-r border-gray-200 p-1">
+                            @if($history->isNotEmpty())
+                                <h4 class="text-sm text-left text-gray-300 mb-1">History</h4>
+                                    @foreach ($history as $h)
+                                        <div class="p-1 text-gray-700 flex items-center justify-between hover:bg-gray-100 group">
+                                            <div class="flex items-center gap-2">
+                                                <!-- History Icon -->
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                     class="w-5 h-5 text-gray-200 group-hover:text-gray-400 transition"
+                                                     fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                     stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                          d="M12 6v6l4 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                </svg>
+                                                {{ $h->query }}
+                                            </div>
 
-
-                            <h4 class="text-sm text-right text-gray-300 mb-1">Favorites</h4>
-
-                            <ul class="mb-4">
-                                @foreach ($favorites as $fav)
-                                    <li class="p-1 text-gray-700 flex justify-between">
-                                        {{ ucfirst($fav->type) }}
-                                        #{{ $fav->query }}
-
-                                        <div class="cursor-pointer group"
-                                             wire:click.prevent="removeFromFavorites({{ $fav['id'] }})">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 fill="none"
-                                                 viewBox="0 0 24 24"
-                                                 stroke-width="1.5"
-                                                 class="w-6 h-6 fill-blue-300 stroke-blue-500 group-hover:fill-gray-50 group-hover:stroke-gray-300 transition">
-                                                <path stroke-linecap="round"
-                                                      stroke-linejoin="round"
-                                                      d="M11.48 3.499a.75.75 0 011.04 0l2.62 2.656
-                                         3.548.516a.75.75 0 01.416 1.279l-2.566 2.5
-                                         .606 3.537a.75.75 0 01-1.09.79L12 13.347l-3.174
-                                         1.66a.75.75 0 01-1.09-.79l.606-3.537-2.566-2.5a.75.75
-                                         0 01.416-1.28l3.548-.516 2.62-2.655z"/>
-                                            </svg>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-
-                        @if($history->isNotEmpty())
-                            <div class="w-full border-b border-b-gray-200 h-1">&nbsp;</div>
-{{--                            <div class="w-full flex justify-between items-center">--}}
-{{--                                <h4 class="text-sm text-gray-400">Recent Searches</h4>--}}
-{{--                                <button wire:click.prevent="clearHistory"--}}
-{{--                                        onclick="return confirm('Are you sure you want to clear your History?')"--}}
-{{--                                        class="text-gray-300 text-sm cursor-pointer hover:text-blue-400">Clear--}}
-{{--                                </button>--}}
-{{--                            </div>--}}
-                            <ul>
-                                @foreach ($history as $h)
-                                    <li class="p-1 text-gray-700 flex items-center justify-between hover:bg-gray-100 group">
-                                        <div class="flex items-center gap-2">
-                                            <!-- History Icon -->
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 class="w-5 h-5 text-gray-200 group-hover:text-gray-400 transition"
-                                                 fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                      d="M12 6v6l4 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            {{ $h->query }}
+                                            <!-- Remove Icon (X) -->
+                                            <div class="cursor-pointer"
+                                                 wire:click.prevent="removeFromHistory({{ $h->id }})">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                     class="w-5 h-5 text-gray-200 hover:text-gray-400 transition"
+                                                     fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                     stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                          d="M6 18L18 6M6 6l12 12"/>
+                                                </svg>
+                                            </div>
                                         </div>
 
-                                        <!-- Remove Icon (X) -->
-                                        <div class="cursor-pointer"
-                                             wire:click.prevent="removeFromHistory({{ $h->id }})">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 class="w-5 h-5 text-gray-200 hover:text-gray-400 transition"
-                                                 fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                      d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
-                                        </div>
-                                    </li>
+                                    @endforeach
+                            @endif
+                        </div>
 
+                        <div class="w-full">
+                            @if($favorites->isNotEmpty())
 
-                                @endforeach
-                            </ul>
-                        @endif
+                                <h4 class="text-sm text-left text-gray-300 mb-1">Favorites</h4>
+                                    @foreach ($favorites as $fav)
+                                        <li class="p-1 text-gray-700 flex justify-between">
+                                            {{ ucfirst($fav->type) }}
+                                            #{{ $fav->query }}
+
+                                            <div class="cursor-pointer group"
+                                                 wire:click.prevent="removeFromFavorites({{ $fav['id'] }})">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                     fill="none"
+                                                     viewBox="0 0 24 24"
+                                                     stroke-width="1.5"
+                                                     class="w-6 h-6 fill-blue-300 stroke-blue-500 group-hover:fill-gray-50 group-hover:stroke-gray-300 transition">
+                                                    <path stroke-linecap="round"
+                                                          stroke-linejoin="round"
+                                                          d="M11.48 3.499a.75.75 0 011.04 0l2.62 2.656
+                                                             3.548.516a.75.75 0 01.416 1.279l-2.566 2.5
+                                                             .606 3.537a.75.75 0 01-1.09.79L12 13.347l-3.174
+                                                             1.66a.75.75 0 01-1.09-.79l.606-3.537-2.566-2.5a.75.75
+                                                             0 01.416-1.28l3.548-.516 2.62-2.655z"/>
+                                                </svg>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                            @endif
+                        </div>
+                    </div>
                     </div>
                 @endif
+
 
             </ul>
         </div>

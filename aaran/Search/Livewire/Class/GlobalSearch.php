@@ -53,6 +53,8 @@ class GlobalSearch extends Component
                 ->take(10)
                 ->get()
                 ->toArray();
+        } else {
+            $this->results = [];
         }
     }
 
