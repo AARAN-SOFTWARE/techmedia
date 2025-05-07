@@ -39,7 +39,7 @@ class ErpNextService
      * @param array $filters
      * @return array
      */
-    public function get($doctype, $filters = [])
+    public function getList($doctype, $filters = [])
     {
         try {
             $url = $this->baseUrl . "/api/resource/{$doctype}";

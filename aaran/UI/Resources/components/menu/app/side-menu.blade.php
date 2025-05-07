@@ -25,6 +25,7 @@
 
 
             <x-Ui::menu.app.sub.inventory/>
+            <x-Ui::menu.app.sub.slider/>
             <x-Ui::menu.app.sub.logout/>
 
         </ul>

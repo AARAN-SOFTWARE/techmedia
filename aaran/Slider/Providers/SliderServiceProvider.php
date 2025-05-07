@@ -1,22 +1,22 @@
 <?php
 
-namespace Aaran\Frappe\Providers;
+namespace Aaran\Slider\Providers;
 
-use Aaran\Frappe\Livewire\Class;
+use Aaran\Slider\Livewire\Class;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
-class FrappeServiceProvider extends ServiceProvider
+class SliderServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->register(FrappeRouteProvider::class);
+        $this->app->register(SliderRouteProvider::class);
         $this->loadViews();
     }
 
     public function boot(): void
     {
-        Livewire::component('frappe::stock-list', Class\StockList::class);
+        Livewire::component('frappe::stock-list', Class\SliderList::class);
 
         $this->registerMigrations();
 
@@ -24,7 +24,7 @@ class FrappeServiceProvider extends ServiceProvider
 
     protected function loadViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../Livewire/Views', 'frappe');
+        $this->loadViewsFrom(__DIR__ . '/../Livewire/Views', 'slider');
     }
 
     private function registerMigrations()

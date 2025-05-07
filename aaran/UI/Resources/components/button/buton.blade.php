@@ -3,7 +3,7 @@
 ])
 
 <button {{$attributes}}
-    class="overflow-hidden relative w-28 h-10 bg-stone-700 text-white border-none rounded-md  tracking-widest cursor-pointer z-10 self-center group"
+    class="overflow-hidden relative w-28 h-10 bg-stone-800 text-white border-none rounded-md  tracking-widest cursor-pointer z-10 self-center group"
 >{{$label}}
     <span
         class="absolute w-36 h-32 -top-8 -left-2 bg-white rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-left"
