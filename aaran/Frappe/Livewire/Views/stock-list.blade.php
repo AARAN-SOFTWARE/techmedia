@@ -7,16 +7,24 @@
 
         <x-Ui::alerts.notification/>
 
-        <!-- Select Dropdown -->
-        <select wire:model="selected">
-            <option value="Wireless Mouse">Wireless Mouse</option>
-            <option value="Keyboard">Keyboards</option>
-        </select>
 
-        <!-- Search Button -->
-        <button class="px-3 py-2 bg-green-400" wire:click="getStockBalanceReport">
-            Search
-        </button>
+        <div class="flex flex-row justify-between items-center gap-6 py-4 print:hidden">
+            <div class="w-2/4 flex items-center space-x-2">
+
+                <x-Ui::input.search-bar wire:model.live="searches"
+                                        wire:keydown.escape="$set('searches', '')" label="Search"/>
+                <x-Ui::input.toggle-filter :show-filters="$showFilters"/>
+            </div>
+
+            <div class="flex justify-between">
+                <x-Ui::forms.per-page/>
+                <div class="self-center">
+                    <x-Ui::button.buton label="Sync" wire:click="create"/>
+                </div>
+            </div>
+        </div>
+
+        <x-Ui::input.advance-search :show-filters="$showFilters"/>
 
         <x-Ui::table.form>
             <x-slot:table_header>

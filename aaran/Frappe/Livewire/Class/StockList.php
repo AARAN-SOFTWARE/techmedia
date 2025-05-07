@@ -2,12 +2,15 @@
 
 namespace Aaran\Frappe\Livewire\Class;
 
+use Aaran\Assets\Traits\ComponentStateTrait;
 use Aaran\Frappe\Services\ErpNextService;
 use Exception;
 use Livewire\Component;
 
 class StockList extends Component
 {
+    use ComponentStateTrait;
+
     public $selected = 'Wireless Mouse';
     public $stockData = [];
 
