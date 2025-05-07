@@ -2,17 +2,17 @@
 
 namespace Aaran\Frappe\Database\Seeders;
 
-use Aaran\Frappe\Models\Inventory;
+use Aaran\Frappe\Models\StockBalance;
 use Illuminate\Database\Seeder;
 
-class InventorySeeder extends Seeder
+class StockBalanceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Inventory::create([
+        StockBalance::create([
             'item_code' => '20002',
             'item_group' => 'Test Item Group',
             'item_name' => 'Test Item',

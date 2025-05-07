@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace Aaran\Search\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SearchFavorite extends Model
+class SearchHistory extends Model
 {
-    /** @use HasFactory<\Aaran\Search\Database\Factories\SearchFavoriteFactory> */
+    /** @use HasFactory<\Aaran\Search\Database\Factories\SearchHistoryFactory> */
     use HasFactory;
 
     protected $guarded = [];
+
 }

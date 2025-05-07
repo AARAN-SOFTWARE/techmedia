@@ -3,6 +3,7 @@
 namespace Aaran\Slider\Livewire\Class;
 
 use Aaran\Assets\Traits\ComponentStateTrait;
+use Aaran\Slider\Models\SlideQuotes;
 use Aaran\Slider\Models\Slider;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
@@ -54,16 +55,24 @@ class SliderList extends Component
             ['id' => $this->vid],
             [
                 'name' => Str::ucfirst($this->name),
-                'header' => $this->header,
-                'bg_colour' => $this->bg_colour,
-                'txt_colour' => $this->txt_colour,
-                'fill_colour' => $this->fill_colour,
-                'tagline' => $this->tagline,
-                'tagline_2' => $this->tagline_2,
                 'link_name' => $this->link_name,
                 'link_to' => $this->link_to,
                 'active_id' => $this->active_id,
             ],
+        );
+
+        SliderShow::where('slider_id', $this->vid)->delete();
+
+        SlideQuotes::query()->create([
+            'slider_id' => $this->vid,
+            'header' => $this->header,
+            'bg_colour' => $this->bg_colour,
+            'txt_colour' => $this->txt_colour,
+            'fill_colour' => $this->fill_colour,
+            'tagline' => $this->tagline,
+            'tagline_2' => $this->tagline_2,
+            'active_id' => $this->active_id,
+        ],
         );
 
         $this->dispatch('notify', ...['type' => 'success', 'content' => ($this->vid ? 'Updated' : 'Saved') . ' Successfully']);
@@ -111,6 +120,7 @@ class SliderList extends Component
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);
     }
+
     public function deleteFunction(): void
     {
         if (!$this->deleteId) return;

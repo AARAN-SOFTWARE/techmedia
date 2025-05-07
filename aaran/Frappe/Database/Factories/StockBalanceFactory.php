@@ -2,13 +2,13 @@
 
 namespace Aaran\Frappe\Database\Factories;
 
-use Aaran\Frappe\Models\Inventory;
+use Aaran\Frappe\Models\StockBalance;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class InventoryFactory extends Factory
+class StockBalanceFactory extends Factory
 {
 
-    protected $model = Inventory::class;
+    protected $model = StockBalance::class;
 
     public function definition(): array
     {

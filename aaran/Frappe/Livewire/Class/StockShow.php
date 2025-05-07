@@ -3,10 +3,7 @@
 namespace Aaran\Frappe\Livewire\Class;
 
 use Aaran\Assets\Traits\ComponentStateTrait;
-use Aaran\Frappe\Models\Inventory;
-use Aaran\Frappe\Services\ErpNextService;
-use App\Jobs\InvetoryJob;
-use Exception;
+use Aaran\Frappe\Models\StockBalance;
 use Livewire\Component;
 
 class StockShow extends Component
@@ -18,7 +15,7 @@ class StockShow extends Component
     public function mount($id)
     {
         if ($id){
-            $this->item = Inventory::find($id);
+            $this->item = StockBalance::find($id);
         }
     }
 

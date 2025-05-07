@@ -3,9 +3,9 @@
 namespace Aaran\Frappe\Livewire\Class;
 
 use Aaran\Assets\Traits\ComponentStateTrait;
-use Aaran\Frappe\Models\Inventory;
+use Aaran\Frappe\Jobs\StockBalanceSyncJob;
+use Aaran\Frappe\Models\StockBalance;
 use Aaran\Frappe\Services\ErpNextService;
-use App\Jobs\InvetoryJob;
 use Exception;
 use Livewire\Component;
 
@@ -21,7 +21,7 @@ class StockList extends Component
 
     public function getList()
     {
-        return Inventory::search(trim($this->searches))
+        return StockBalance::search(trim($this->searches))
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);
     }
@@ -45,7 +45,7 @@ class StockList extends Component
             $this->stockData = $this->erpNextService->handleResponse($response)['message']['result'] ?? [];
 
             set_time_limit(300); // 5 minutes
-            InvetoryJob::dispatchSync($this->stockData);
+            StockBalanceSyncJob::dispatchSync($this->stockData);
 
         } catch (Exception $e) {
             $this->stockData = [];

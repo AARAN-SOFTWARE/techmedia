@@ -13,12 +13,6 @@ return new class extends Migration {
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->text('header');
-            $table->text('bg_colour')->nullable();
-            $table->text('txt_colour')->nullable();
-            $table->text('fill_colour')->nullable();
-            $table->text('tagline')->nullable();
-            $table->text('tagline_2')->nullable();
             $table->text('link_name')->nullable();
             $table->text('link_to')->nullable();
             $table->boolean('active_id')->default(true);

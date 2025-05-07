@@ -2,15 +2,16 @@
 
 namespace Aaran\Frappe\Models;
 
-use Aaran\Frappe\Database\Factories\InventoryFactory;
+use Aaran\Frappe\Database\Factories\StockBalanceFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inventory extends Model
+class StockBalance extends Model
 {
     use HasFactory;
 
+    protected $table = 'stock_balances';
     protected $guarded = [];
 
 //    public static function search(string $searches)
@@ -189,8 +190,8 @@ class Inventory extends Model
 
 
 
-    protected static function newFactory(): InventoryFactory
+    protected static function newFactory(): StockBalanceFactory
     {
-        return InventoryFactory::new();
+        return StockBalanceFactory::new();
     }
 }

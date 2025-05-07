@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Aaran\Frappe\Database\Seeders\InventorySeeder;
-use Aaran\Frappe\Models\Inventory;
+use Aaran\Frappe\Database\Seeders\StockBalanceSeeder;
+use Aaran\Frappe\Models\StockBalance;
 use Illuminate\Database\Seeder;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        Inventory::factory()->count(20)->create();
+        StockBalance::factory()->count(20)->create();
 
         $this->call([
             UserSeeder::class,
-            InventorySeeder::class,
+            StockBalanceSeeder::class,
 
 
         ]);

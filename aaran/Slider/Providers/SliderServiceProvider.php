@@ -17,6 +17,7 @@ class SliderServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Livewire::component('slider::slider-list', Class\SliderList::class);
+        Livewire::component('slider::slider-show', Class\SliderShow::class);
 
         $this->registerMigrations();
 

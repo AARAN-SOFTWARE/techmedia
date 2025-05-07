@@ -5,7 +5,7 @@ namespace Aaran\Search\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\SearchHistory>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Aaran\Search\Models\SearchHistory>
  */
 class SearchHistoryFactory extends Factory
 {

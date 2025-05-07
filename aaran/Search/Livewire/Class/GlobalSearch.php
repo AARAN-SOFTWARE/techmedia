@@ -2,10 +2,9 @@
 
 namespace Aaran\Search\Livewire\Class;
 
-use Aaran\Frappe\Models\Inventory;
-use App\Models\SearchFavorite;
-use App\Models\SearchHistory;
-use App\Models\User;
+use Aaran\Frappe\Models\StockBalance;
+use Aaran\Search\Models\SearchFavorite;
+use Aaran\Search\Models\SearchHistory;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -48,7 +47,7 @@ class GlobalSearch extends Component
             }
         }
         if (strlen($query) >= 1) {
-            $this->results = Inventory::search($query)
+            $this->results = StockBalance::search($query)
                 ->get()
                 ->toArray();
 
