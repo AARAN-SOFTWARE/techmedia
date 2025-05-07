@@ -42,33 +42,30 @@
 
             <x-slot:table_body>
 
-                @if (!empty($stockData))
-                    @foreach ($stockData as $row)
-                        @if (!empty($row['item_code']))
-                            <x-Ui::table.row>
-                                <x-Ui::table.cell-text>{{ $loop->iteration }}</x-Ui::table.cell-text>
-                                <x-Ui::table.cell-text>{{ $row['item_code'] }}</x-Ui::table.cell-text>
-                                <x-Ui::table.cell-text left>{{ $row['item_name'] ?? '' }}</x-Ui::table.cell-text>
-                                <x-Ui::table.cell-text>{{ $row['warehouse'] ?? '' }}</x-Ui::table.cell-text>
-                                <x-Ui::table.cell-text>{{ $row['item_group'] ?? '' }}</x-Ui::table.cell-text>
-                                <x-Ui::table.cell-text>{{ $row['opening_qty'] ?? 0 }}</x-Ui::table.cell-text>
-                                <x-Ui::table.cell-text right>{{ $row['opening_val'] ?? 0 }}</x-Ui::table.cell-text>
-                                <x-Ui::table.cell-text>{{ $row['bal_qty'] ?? 0 }}</x-Ui::table.cell-text>
-                                <x-Ui::table.cell-text right>{{ $row['bal_val'] ?? 0 }}</x-Ui::table.cell-text>
-                                <x-Ui::table.cell-text right>{{ $row['val_rate'] ?? 0 }}</x-Ui::table.cell-text>
-                            </x-Ui::table.row>
-                        @endif
-                    @endforeach
-                @else
+                @forelse($list as $index=>$row)
+                    <x-Ui::table.row>
+                        <x-Ui::table.cell-text>{{ $loop->iteration }}</x-Ui::table.cell-text>
+                        <x-Ui::table.cell-text>{{ $row->item_code }}</x-Ui::table.cell-text>
+                        <x-Ui::table.cell-text left>{{ $row['item_name'] ?? '' }}</x-Ui::table.cell-text>
+                        <x-Ui::table.cell-text>{{ $row['warehouse'] ?? '' }}</x-Ui::table.cell-text>
+                        <x-Ui::table.cell-text>{{ $row['item_group'] ?? '' }}</x-Ui::table.cell-text>
+                        <x-Ui::table.cell-text>{{ $row['opening_qty'] ?? 0 }}</x-Ui::table.cell-text>
+                        <x-Ui::table.cell-text right>{{ $row['opening_val'] ?? 0 }}</x-Ui::table.cell-text>
+                        <x-Ui::table.cell-text>{{ $row['bal_qty'] ?? 0 }}</x-Ui::table.cell-text>
+                        <x-Ui::table.cell-text right>{{ $row['bal_val'] ?? 0 }}</x-Ui::table.cell-text>
+                        <x-Ui::table.cell-text right>{{ $row['val_rate'] ?? 0 }}</x-Ui::table.cell-text>
+                    </x-Ui::table.row>
+                @empty
                     <x-Ui::table.row>
                         <x-Ui::table.cell-text colspan="10" class="text-center text-gray-500">
                             No stock data available.
                         </x-Ui::table.cell-text>
                     </x-Ui::table.row>
-                @endif
-
+                @endforelse
             </x-slot:table_body>
         </x-Ui::table.form>
+
+        <div class="pt-5">{{ $list->links('pagination::tailwind') }}</div>
 
     </x-Ui::forms.m-panel>
 </div>

@@ -3,8 +3,9 @@
 namespace Aaran\Frappe\Livewire\Class;
 
 use Aaran\Assets\Traits\ComponentStateTrait;
-use Aaran\Frappe\Models\StockBalance;
+use Aaran\Frappe\Models\Inventory;
 use Aaran\Frappe\Services\ErpNextService;
+use App\Jobs\InvetoryJob;
 use Exception;
 use Livewire\Component;
 
@@ -12,26 +13,22 @@ class StockList extends Component
 {
     use ComponentStateTrait;
 
+
+
     public $selected = 'Wireless Mouse';
     public $stockData = [];
 
     protected ErpNextService $erpNextService;
 
-    public function mount()
-    {
-        $this->getStockBalanceReport();
-    }
-
-    public function updatedSelected(): void
-    {
-        $this->getStockBalanceReport();
-    }
+//    public function updatedSelected(): void
+//    {
+//        $this->getList();
+//    }
 
 
-    public function getStockBalanceReport()
+    public function getList()
     {
-        $this->stockData = StockBalance::query()
-            ->when($this->searches, fn($query) => $query->searchByName($this->searches))
+        return Inventory::when($this->searches, fn($query) => $query->searchByName($this->searches))
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);
 
@@ -45,37 +42,18 @@ class StockList extends Component
             $url = $this->erpNextService->baseUrl . "/api/method/frappe.desk.query_report.run";
 
             $response = $this->erpNextService->client()->get($url, [
-                'report_name' => 'Stock Balance',
+                'report_name' => 'Stock Balance 2',
                 'ignore_prepared_report' => 'True',
                 'filters' => json_encode([
                     'item_group' => $this->selected,
-                    'to_date' => '2025-01-03',
+                    'to_date' => now()->format('Y-m-d'),
                 ])
             ]);
 
             $this->stockData = $this->erpNextService->handleResponse($response)['message']['result'] ?? [];
 
-            if (!empty($stockData)) {
-
-                StockBalance::query()->truncate();
-
-                foreach ($this->stockData as $row) {
-                    if (!empty($row['item_code'])) {
-                        StockBalance::query()->Create(
-                            [
-                                'item' => $row['item_code'],
-                                'item_group' => $row['item_group'],
-                                'brand' => $row['brand'],
-                                'warehouse' => $row['warehouse'],
-                                'balance_qty' => $row['bal_qty'],
-                                'balance_value' => $row['bal_val'],
-                                'valuation_rate' => $row['val_rate'],
-                                'price' => $row['price'],
-                            ],
-                        );
-                    }
-                }
-            }
+            set_time_limit(300); // 5 minutes
+            InvetoryJob::dispatchSync($this->stockData);
 
         } catch (Exception $e) {
             $this->stockData = [];
@@ -85,6 +63,8 @@ class StockList extends Component
 
     public function render()
     {
-        return view('frappe::stock-list');
+        return view('frappe::stock-list', [
+            'list' => $this->getList()
+        ]);
     }
 }

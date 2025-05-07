@@ -8,6 +8,7 @@ trait ComponentStateTrait
 {
     use WithPagination;
 
+    public $page = 1;
     protected $queryString = ['page'];
 
     public bool $showEditModal = false;

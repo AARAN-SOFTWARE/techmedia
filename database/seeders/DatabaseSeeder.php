@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use Aaran\Frappe\Database\Seeders\InventorySeeder;
+use Aaran\Frappe\Models\Inventory;
+use Illuminate\Database\Seeder;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,8 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        Inventory::factory()->count(20)->create();
+
         $this->call([
             UserSeeder::class,
+            InventorySeeder::class,
+
+
         ]);
     }
 }
