@@ -23,6 +23,7 @@
 
                 <x-Ui::table.header-text sortIcon="none" :left="true">Link name</x-Ui::table.header-text>
                 <x-Ui::table.header-text sortIcon="none" :left="true">Link to</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none">Show</x-Ui::table.header-text>
 
                 <x-Ui::table.header-status/>
                 <x-Ui::table.header-action/>
@@ -32,7 +33,7 @@
                 @foreach($list as $index=>$row)
 
                     @php
-                        $link = route('slider-show', $row->id);
+                        $link = route('slider-quotes', $row->id);
                     @endphp
 
                     <x-Ui::table.row>
@@ -47,6 +48,11 @@
                         <x-Ui::table.cell-link :href="$link" left>{{$row->link_to}}</x-Ui::table.cell-link>
 
                         <x-Ui::table.cell-status active="{{$row->active_id}}"/>
+
+                        <x-Ui::table.cell-link class="w-6" :href="route('slider-show', $row->id)" left>
+                            <x-Ui::icons.icon :icon="'eye'" class="w-8 h-auto block"/>
+                        </x-Ui::table.cell-link>
+
 
                         <x-Ui::table.cell-action id="{{$row->id}}"/>
                     </x-Ui::table.row>

@@ -13,8 +13,9 @@ class SliderQuoteList extends Component
 {
     use ComponentStateTrait;
 
+    public mixed $slider_id;
+
     #[Validate]
-    public string $slider_id = '';
     public string $header = '';
     public string $bg_colour = '';
     public string $txt_colour = '';
@@ -41,7 +42,7 @@ class SliderQuoteList extends Component
     public function validationAttributes(): array
     {
         return [
-            'header' => 'Header',
+            'header' => 'Slider name',
         ];
     }
 
@@ -49,18 +50,18 @@ class SliderQuoteList extends Component
     {
         $this->validate();
 
-        SliderShow::where('slider_id', $this->vid)->delete();
-
-        SliderQuotes::query()->create([
-            'slider_id' => $this->vid,
-            'header' => $this->header,
-            'bg_colour' => $this->bg_colour,
-            'txt_colour' => $this->txt_colour,
-            'fill_colour' => $this->fill_colour,
-            'tagline' => $this->tagline,
-            'tagline_2' => $this->tagline_2,
-            'active_id' => $this->active_id,
-        ],
+        SliderQuotes::query()->updateOrCreate(
+            ['id' => $this->vid],
+            [
+                'slider_id' => $this->slider_id,
+                'header' => $this->header,
+                'bg_colour' => $this->bg_colour,
+                'txt_colour' => $this->txt_colour,
+                'fill_colour' => $this->fill_colour,
+                'tagline' => $this->tagline,
+                'tagline_2' => $this->tagline_2,
+                'active_id' => $this->active_id,
+            ],
         );
 
         $this->dispatch('notify', ...['type' => 'success', 'content' => ($this->vid ? 'Updated' : 'Saved') . ' Successfully']);
@@ -70,41 +71,36 @@ class SliderQuoteList extends Component
     public function clearFields(): void
     {
         $this->vid = null;
-        $this->slider_id = '';
         $this->header = '';
         $this->bg_colour = '';
         $this->txt_colour = '';
         $this->fill_colour = '';
         $this->tagline = '';
         $this->tagline_2 = '';
-        $this->link_name = '';
-        $this->link_to = '';
         $this->active_id = true;
         $this->searches = '';
     }
 
     public function getObj(int $id): void
     {
-        if ($obj = Slider::query()->find($id)) {
+        if ($obj = SliderQuotes::query()->find($id)) {
             $this->vid = $obj->id;
-            $this->slider_id = $obj->name;
+            $this->slider_id = $obj->slider_id;
             $this->header = $obj->header;
             $this->bg_colour = $obj->bg_colour;
             $this->txt_colour = $obj->txt_colour;
             $this->fill_colour = $obj->fill_colour;
             $this->tagline = $obj->tagline;
             $this->tagline_2 = $obj->tagline_2;
-            $this->link_name = $obj->link_name;
-            $this->link_to = $obj->link_to;
             $this->active_id = $obj->active_id;
         }
     }
 
     public function getList()
     {
-        return Slider::query()
+        return SliderQuotes::query()
             ->active($this->activeRecord)
-            ->when($this->searches, fn($query) => $query->searchByName($this->searches))
+            ->where('slider_id', $this->slider_id)
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);
     }
@@ -113,15 +109,20 @@ class SliderQuoteList extends Component
     {
         if (!$this->deleteId) return;
 
-        $obj = Slider::query()->find($this->deleteId);
+        $obj = SliderQuotes::query()->find($this->deleteId);
         if ($obj) {
             $obj->delete();
         }
     }
 
+    public function mount($id): void
+    {
+        $this->slider_id = $id;
+    }
+
     public function render()
     {
-        return view('slider::slider-list', [
+        return view('slider::slider-quote-list', [
             'list' => $this->getList()
         ]);
     }
