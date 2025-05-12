@@ -35,7 +35,7 @@
             <x-slot:table_header>
                 <x-Ui::table.header-text sortIcon="none" >invoice</x-Ui::table.header-text>
                 <x-Ui::table.header-text sortIcon="none" :left="true">supplier_name</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" >Stock</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none" >Purchase Qty</x-Ui::table.header-text>
                 <x-Ui::table.header-text sortIcon="none" >Price</x-Ui::table.header-text>
                 <x-Ui::table.header-text sortIcon="none" >Taxable</x-Ui::table.header-text>
                 <x-Ui::table.header-text sortIcon="none" >Gst</x-Ui::table.header-text>
