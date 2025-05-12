@@ -66,7 +66,7 @@ class StockShow extends Component
                 ["Item Price", "item_code", "=", $this->item['item_code']],
             ];
 
-            $fields = ['name','item_code', 'item_name','brand','item_description','price_list','buying','selling','price_list_rate'];
+            $fields = ['name','modified','item_code', 'item_name','brand','item_description','price_list','buying','selling','price_list_rate'];
 
             $queryParams = [
                 'filters' => json_encode($filters),
