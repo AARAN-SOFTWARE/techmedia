@@ -33,14 +33,15 @@
 
         <x-Ui::table.form>
             <x-slot:table_header>
-                <x-Ui::table.header-text sortIcon="none" >invoice</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none">Modified</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none">invoice</x-Ui::table.header-text>
                 <x-Ui::table.header-text sortIcon="none" :left="true">supplier_name</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" >Purchase Qty</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" >Price</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" >Taxable</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" >Gst</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" >Amount</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" >Val Rate</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none">Purchase Qty</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none">Price</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none">Taxable</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none">Gst</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none">Amount</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none">Val Rate</x-Ui::table.header-text>
             </x-slot:table_header>
 
             <x-slot:table_body>
@@ -53,30 +54,34 @@
                     @endphp
 
                     @if(isset($row['item_code']))
-                    <x-Ui::table.row>
+                        <x-Ui::table.row>
 
-                        <x-Ui::table.cell-link :href="$link">{{ $row['invoice'] }}</x-Ui::table.cell-link>
-                        <x-Ui::table.cell-link :href="$link">{{ $row['supplier_name'] }}</x-Ui::table.cell-link>
+                            <x-Ui::table.cell-link :href="$link">
+                                {{ date('d-m-Y', strtotime( $row['modified']))}}
+                            </x-Ui::table.cell-link>
 
-                        <x-Ui::table.cell-link
-                            :href="$link">{{ $row['stock_qty'] ? $row['stock_qty'] +0 :'-' }}</x-Ui::table.cell-link>
+                            <x-Ui::table.cell-link :href="$link">{{ $row['invoice'] }}</x-Ui::table.cell-link>
+                            <x-Ui::table.cell-link :href="$link">{{ $row['supplier_name'] }}</x-Ui::table.cell-link>
 
-                        <x-Ui::table.cell-link :href="$link"
-                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row['rate']) }}</x-Ui::table.cell-link>
+                            <x-Ui::table.cell-link
+                                :href="$link">{{ $row['stock_qty'] ? $row['stock_qty'] +0 :'-' }}</x-Ui::table.cell-link>
 
-                        <x-Ui::table.cell-link :href="$link"
-                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row['amount']) }}</x-Ui::table.cell-link>
+                            <x-Ui::table.cell-link :href="$link"
+                                                   right>{{  Aaran\Assets\Helper\Format::Decimal($row['rate']) }}</x-Ui::table.cell-link>
 
-                        <x-Ui::table.cell-link :href="$link"
-                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row['total_tax']) }}</x-Ui::table.cell-link>
+                            <x-Ui::table.cell-link :href="$link"
+                                                   right>{{  Aaran\Assets\Helper\Format::Decimal($row['amount']) }}</x-Ui::table.cell-link>
 
-                        <x-Ui::table.cell-link :href="$link"
-                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row['total']) }}</x-Ui::table.cell-link>
+                            <x-Ui::table.cell-link :href="$link"
+                                                   right>{{  Aaran\Assets\Helper\Format::Decimal($row['total_tax']) }}</x-Ui::table.cell-link>
 
-                        <x-Ui::table.cell-link :href="$link"
-                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row['total']/$row['stock_qty']) }}</x-Ui::table.cell-link>
+                            <x-Ui::table.cell-link :href="$link"
+                                                   right>{{  Aaran\Assets\Helper\Format::Decimal($row['total']) }}</x-Ui::table.cell-link>
 
-                    </x-Ui::table.row>
+                            <x-Ui::table.cell-link :href="$link"
+                                                   right>{{  Aaran\Assets\Helper\Format::Decimal($row['total']/$row['stock_qty']) }}</x-Ui::table.cell-link>
+
+                        </x-Ui::table.row>
                     @endif
 
                 @empty
