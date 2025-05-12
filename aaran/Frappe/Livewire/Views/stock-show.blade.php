@@ -9,56 +9,107 @@
 
         <h2 class="text-2xl font-semibold mb-6">Item Details</h2>
 
-        <table class="table-auto w-full text-left border-collapse">
+        <div class="grid grid-cols-4 bg-white text-black gap-3">
+
+            <div class="border-b p-2 text-gray-500">Brand</div>
+            <div class="border-b p-2">{{ $item->brand }}</div>
+
+            <div class="border-b p-2 text-gray-500">Item Code</div>
+            <div class="border-b p-2">{{ $item->item_code }}</div>
+
+            <div class="border-b p-2 text-gray-500">Item Name</div>
+            <div class="border-b p-2">{{ $item->item_name }}</div>
+
+            <div class="border-b p-2 text-gray-500">Item Group</div>
+            <div class="border-b p-2">{{ $item->item_group }}</div>
+
+            <div class="border-b p-2 text-gray-500">Balance Qty</div>
+            <div class="border-b p-2">{{ $item->balance_qty ? $item->balance_qty:'-'  }}</div>
+
+            <div class="border-b p-2 text-gray-500">Valuation Rate</div>
+            <div class="border-b p-2">{{ Aaran\Assets\Helper\Format::rupeesFormat($item->valuation_rate) }}</div>
+
+        </div>
+
+        <x-Ui::table.form>
+            <x-slot:table_header>
+                <x-Ui::table.header-text sortIcon="none" >invoice</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none" :left="true">supplier_name</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none" >Stock</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none" >Price</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none" >Taxable</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none" >Gst</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none" >Amount</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none" >Val Rate</x-Ui::table.header-text>
+            </x-slot:table_header>
+
+            <x-slot:table_body>
+
+                @forelse($stockData as $row)
+
+                    @php
+                        //       $link = route('stock-show', $row->id);
+                               $link = route('dashboard');
+                    @endphp
+
+                    @if(isset($row['item_code']))
+                    <x-Ui::table.row>
+
+                        <x-Ui::table.cell-link :href="$link">{{ $row['invoice'] }}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link">{{ $row['supplier_name'] }}</x-Ui::table.cell-link>
+
+                        <x-Ui::table.cell-link
+                            :href="$link">{{ $row['stock_qty'] ? $row['stock_qty'] +0 :'-' }}</x-Ui::table.cell-link>
+
+                        <x-Ui::table.cell-link :href="$link"
+                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row['rate']) }}</x-Ui::table.cell-link>
+
+                        <x-Ui::table.cell-link :href="$link"
+                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row['amount']) }}</x-Ui::table.cell-link>
+
+                        <x-Ui::table.cell-link :href="$link"
+                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row['total_tax']) }}</x-Ui::table.cell-link>
+
+                        <x-Ui::table.cell-link :href="$link"
+                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row['total']) }}</x-Ui::table.cell-link>
+
+                        <x-Ui::table.cell-link :href="$link"
+                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row['total']/$row['stock_qty']) }}</x-Ui::table.cell-link>
+
+                    </x-Ui::table.row>
+                    @endif
+
+                @empty
+                    <x-Ui::table.row>
+                        <x-Ui::table.cell-text colspan="10" class="text-center text-gray-500">
+                            No stock data available.
+                        </x-Ui::table.cell-text>
+                    </x-Ui::table.row>
+                @endforelse
+            </x-slot:table_body>
+        </x-Ui::table.form>
+
+        <table class="bg-white text-black table-auto w-full text-left border-collapse">
             <tbody>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600 w-1/3">Item Code</th>
-                <td class="border-b p-2">{{ $item->item_code }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Item Name</th>
-                <td class="border-b p-2">{{ $item->item_name }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Item Group</th>
-                <td class="border-b p-2">{{ $item->item_group }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Brand</th>
-                <td class="border-b p-2">{{ $item->brand }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Warehouse</th>
-                <td class="border-b p-2">{{ $item->warehouse }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Opening Qty</th>
-                <td class="border-b p-2">{{ $item->opening_qty }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Opening Valuation</th>
-                <td class="border-b p-2">{{ Aaran\Assets\Helper\Format::rupeesFormat($item->opening_val) }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Balance Qty</th>
-                <td class="border-b p-2">{{ $item->balance_qty ? $item->balance_qty:'-'  }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Balance Valuation</th>
-                <td class="border-b p-2">₹{{ Aaran\Assets\Helper\Format::rupeesFormat($item->balance_val) }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Valuation Rate</th>
-                <td class="border-b p-2">₹{{ Aaran\Assets\Helper\Format::rupeesFormat($item->valuation_rate) }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Created At</th>
-                <td class="border-b p-2">{{ $item->created_at->format('d M Y, h:i A') }}</td>
-            </tr>
-            <tr>
-                <th class="border-b p-2 font-medium text-gray-600">Updated At</th>
-                <td class="border-b p-2">{{ $item->updated_at->format('d M Y, h:i A') }}</td>
-            </tr>
+
+            @forelse($item_price as $row)
+                @if(isset($row['item_code']))
+                    <tr>
+                        <td class="border-b p-2 bg-white text-gray-500">{{ $row['price_list'] }}</td>
+                        <td class="border-b p-2 bg-white text-black">
+                            {{ Aaran\Assets\Helper\Format::rupeesFormat($row['price_list_rate']) }}
+                        </td>
+                    </tr>
+                @endif
+
+            @empty
+                <x-Ui::table.row>
+                    <x-Ui::table.cell-text colspan="10" class="text-center text-gray-500">
+                        No stock data available.
+                    </x-Ui::table.cell-text>
+                </x-Ui::table.row>
+
+            @endforelse
             </tbody>
         </table>
 
