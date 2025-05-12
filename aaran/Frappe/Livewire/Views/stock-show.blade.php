@@ -33,7 +33,7 @@
 
         <x-Ui::table.form>
             <x-slot:table_header>
-                <x-Ui::table.header-text sortIcon="none">Modified</x-Ui::table.header-text>
+{{--                <x-Ui::table.header-text sortIcon="none">Modified</x-Ui::table.header-text>--}}
                 <x-Ui::table.header-text sortIcon="none">invoice</x-Ui::table.header-text>
                 <x-Ui::table.header-text sortIcon="none" :left="true">supplier_name</x-Ui::table.header-text>
                 <x-Ui::table.header-text sortIcon="none">Purchase Qty</x-Ui::table.header-text>
@@ -56,9 +56,9 @@
                     @if(isset($row['item_code']))
                         <x-Ui::table.row>
 
-                            <x-Ui::table.cell-link :href="$link">
-                                {{ date('d-m-Y', strtotime( $row['modified']))}}
-                            </x-Ui::table.cell-link>
+{{--                            <x-Ui::table.cell-link :href="$link">--}}
+{{--                                {{ date('d-m-Y', strtotime( $row['modified']))}}--}}
+{{--                            </x-Ui::table.cell-link>--}}
 
                             <x-Ui::table.cell-link :href="$link">{{ $row['invoice'] }}</x-Ui::table.cell-link>
                             <x-Ui::table.cell-link :href="$link">{{ $row['supplier_name'] }}</x-Ui::table.cell-link>
