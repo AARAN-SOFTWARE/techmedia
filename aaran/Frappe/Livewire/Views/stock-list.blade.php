@@ -41,9 +41,9 @@
                 {{--                <x-Ui::table.header-text sortIcon="none" :left="true">Warehouse</x-Ui::table.header-text>--}}
                 {{--                <x-Ui::table.header-text sortIcon="none" :left="true">Opening Qty</x-Ui::table.header-text>--}}
                 {{--                <x-Ui::table.header-text sortIcon="none" :left="true">Opening Val</x-Ui::table.header-text>--}}
-                <x-Ui::table.header-text sortIcon="none" :left="true">Balance Qty</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" :left="true">Balance Value</x-Ui::table.header-text>
-                <x-Ui::table.header-text sortIcon="none" :left="true">Value Rate</x-Ui::table.header-text>
+                <x-Ui::table.header-text sortIcon="none" :left="true">Stock</x-Ui::table.header-text>
+{{--                <x-Ui::table.header-text sortIcon="none" :left="true">Balance Value</x-Ui::table.header-text>--}}
+{{--                <x-Ui::table.header-text sortIcon="none" :left="true">Value Rate</x-Ui::table.header-text>--}}
             </x-slot:table_header>
 
             <x-slot:table_body>
@@ -52,24 +52,25 @@
 
                     @php
                         $link = route('stock-show', $row->id);
+                        $link_2 = route('stock-client', $row->id);
                     @endphp
 
                     <x-Ui::table.row>
                         {{--<x-Ui::table.cell-text>{{ $loop->iteration }}</x-Ui::table.cell-text>--}}
 
-                        <x-Ui::table.cell-link :href="$link">{{ $row->item_code }}</x-Ui::table.cell-link>
-                        <x-Ui::table.cell-link :href="$link" left>{{ $row->item_name}}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link_2">{{ $row->item_code }}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link_2" left>{{ $row->item_name}}</x-Ui::table.cell-link>
 {{--                        <x-Ui::table.cell-link :href="$link" left>{{ $row->brand}}</x-Ui::table.cell-link>--}}
-                        <x-Ui::table.cell-link :href="$link" left>{{ $row->item_group}}</x-Ui::table.cell-link>
+                        <x-Ui::table.cell-link :href="$link_2" left>{{ $row->item_group}}</x-Ui::table.cell-link>
                         {{--                        <x-Ui::table.cell-link :href="$link">{{ $row->warehouse }}</x-Ui::table.cell-link>--}}
                         {{--                        <x-Ui::table.cell-link :href="$link">{{ $row->opening_qty }}</x-Ui::table.cell-link>--}}
                         {{--                        <x-Ui::table.cell-link :href="$link" right>{{ $row->opening_val }}</x-Ui::table.cell-link>--}}
                         <x-Ui::table.cell-link
                             :href="$link">{{ $row->balance_qty ? $row->balance_qty +0 :'-' }}</x-Ui::table.cell-link>
-                        <x-Ui::table.cell-link :href="$link"
-                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row->balance_val) }}</x-Ui::table.cell-link>
-                        <x-Ui::table.cell-link :href="$link"
-                                               right>{{  Aaran\Assets\Helper\Format::rupeesFormat($row->valuation_rate) }}</x-Ui::table.cell-link>
+{{--                        <x-Ui::table.cell-link :href="$link"--}}
+{{--                                               right>{{  Aaran\Assets\Helper\Format::Decimal($row->balance_val) }}</x-Ui::table.cell-link>--}}
+{{--                        <x-Ui::table.cell-link :href="$link"--}}
+{{--                                               right>{{  Aaran\Assets\Helper\Format::rupeesFormat($row->valuation_rate) }}</x-Ui::table.cell-link>--}}
                     </x-Ui::table.row>
                 @empty
                     <x-Ui::table.row>

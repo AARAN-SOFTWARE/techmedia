@@ -19,6 +19,7 @@ class FrappeServiceProvider extends ServiceProvider
         Livewire::component('frappe::stock-sync', Class\StockSync::class);
         Livewire::component('frappe::stock-list', Class\StockList::class);
         Livewire::component('frappe::stock-show', Class\StockShow::class);
+        Livewire::component('frappe::stock-client', Class\StockClient::class);
 
         $this->registerMigrations();
 
