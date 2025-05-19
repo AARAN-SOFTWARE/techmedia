@@ -13,6 +13,7 @@ class UserSeeder extends Seeder
         $users = [
             ['name' => 'SUNDAR', 'email' => 'sundar@sundar.com', 'password' => 'kalarani'],
             ['name' => 'Vijay', 'email' => 'vijay@techmedia.in', 'password' => '123456789'],
+            ['name' => 'tmuser', 'email' => 'tmuser@techmedia.in', 'password' => '123456789'],
         ];
 
         foreach ($users as $row) {
