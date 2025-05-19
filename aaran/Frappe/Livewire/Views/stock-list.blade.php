@@ -18,9 +18,6 @@
 
             <div class="flex justify-between">
                 <x-Ui::forms.per-page/>
-                <div class="self-center">
-                    <x-Ui::button.buton label="Sync" wire:click="syncStock"/>
-                </div>
             </div>
         </div>
 

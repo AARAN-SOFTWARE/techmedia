@@ -18,6 +18,7 @@ class StockShow extends Component
     public $selected = 'Wireless Mouse';
     public $stockData = [];
     public $item;
+    public mixed $item_detail;
 
     public function mount($id)
     {
@@ -26,6 +27,7 @@ class StockShow extends Component
         }
         $this->itemWisePurchase();
         $this->itemPrice();
+        $this->itemDetail();
     }
 
     public function itemWisePurchase()
@@ -66,7 +68,7 @@ class StockShow extends Component
                 ["Item Price", "item_code", "=", $this->item['item_code']],
             ];
 
-            $fields = ['name','item_code', 'item_name','brand','item_description','price_list','buying','selling','price_list_rate'];
+            $fields = ['name', 'item_code', 'item_name', 'brand', 'item_description', 'price_list', 'buying', 'selling', 'price_list_rate'];
 
             $queryParams = [
                 'filters' => json_encode($filters),
@@ -87,6 +89,37 @@ class StockShow extends Component
         }
     }
 
+    public function itemDetail()
+    {
+        $this->erpNextService = new ErpNextService();
+
+        try {
+            $url = $this->erpNextService->baseUrl . "/api/resource/Item";
+
+            $filters = [
+                ["Item", "item_code", "=", $this->item['item_code']],
+            ];
+
+            $fields = ['name', 'item_code', 'item_name', 'brand', 'image'];
+
+            $queryParams = [
+                'filters' => json_encode($filters),
+                'fields' => json_encode($fields),
+            ];
+
+//             dd($url . '?' . http_build_query($queryParams));
+
+            $response = $this->erpNextService->client()->get($url . '?' . http_build_query($queryParams));
+
+            $this->item_detail = $this->erpNextService->handleResponse($response)['data'][0] ?? [];
+
+            //            dd($item_detail['name']);
+
+        } catch (Exception $e) {
+            $this->item_detail = null;
+            report($e);
+        }
+    }
 
 
     public function render()

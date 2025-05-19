@@ -42,7 +42,7 @@ class StockBalanceSyncJob implements ShouldQueue
                         'item_code' => $row['item_code'],
                         'item_group' => $row['item_group'] ?? null,
                         'item_name' => $row['item_name'] ?? null,
-                        'brand' => $row['brand'] ?? null,
+                        'brand' => '-',//$row['brand'] ?? null,
                         'warehouse' => $row['warehouse'] ?? null,
                         'opening_qty' => $row['opening_qty'] ?? 0,
                         'opening_val' => $row['opening_val'] ?? 0,

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('stock_balances', function (Blueprint $table) {
             $table->id();
             $table->string('item_code');
-            $table->string('item_group');
-            $table->string('item_name');
-            $table->string('brand');
-            $table->string('warehouse');
+            $table->string('item_group')->nullable();
+            $table->string('item_name')->nullable();
+            $table->string('brand')->nullable();
+            $table->string('warehouse')->nullable();
             $table->decimal('opening_qty')->nullable();
             $table->decimal('opening_val')->nullable();
             $table->string('balance_qty')->nullable();
