@@ -12,7 +12,7 @@
         <div class="flex flex-row gap-2">
 
             <div class="border w-[32rem] border-gray-200 p-2 flex items-center justify-center">
-                <img src="https://techmedia.co.in/{{$item_detail['image']}}" alt="" class="w-36 h-auto">
+                <img src="https://techmedia.co.in/{{$item_detail['image']}}" alt="" class="w-fit h-auto">
             </div>
 
             <div class="grid grid-cols-2  w-full bg-white text-black gap-3">
