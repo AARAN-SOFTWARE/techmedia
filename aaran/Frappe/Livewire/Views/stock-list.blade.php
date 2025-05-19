@@ -32,9 +32,9 @@
                 <x-Ui::table.header-text wire:click.prevent="sortBy('item_name')" sortIcon="{{$sortAsc}}" :left="true">
                     Item Name
                 </x-Ui::table.header-text>
-                <x-Ui::table.header-text wire:click.prevent="sortBy('brand')" sortIcon="{{$sortAsc}}" :left="true">
-                    Brand
-                </x-Ui::table.header-text>
+{{--                <x-Ui::table.header-text wire:click.prevent="sortBy('brand')" sortIcon="{{$sortAsc}}" :left="true">--}}
+{{--                    Brand--}}
+{{--                </x-Ui::table.header-text>--}}
                 <x-Ui::table.header-text wire:click.prevent="sortBy('item_group')" sortIcon="{{$sortAsc}}" :left="true">
                     Item group
                 </x-Ui::table.header-text>
@@ -59,7 +59,7 @@
 
                         <x-Ui::table.cell-link :href="$link">{{ $row->item_code }}</x-Ui::table.cell-link>
                         <x-Ui::table.cell-link :href="$link" left>{{ $row->item_name}}</x-Ui::table.cell-link>
-                        <x-Ui::table.cell-link :href="$link" left>{{ $row->brand}}</x-Ui::table.cell-link>
+{{--                        <x-Ui::table.cell-link :href="$link" left>{{ $row->brand}}</x-Ui::table.cell-link>--}}
                         <x-Ui::table.cell-link :href="$link" left>{{ $row->item_group}}</x-Ui::table.cell-link>
                         {{--                        <x-Ui::table.cell-link :href="$link">{{ $row->warehouse }}</x-Ui::table.cell-link>--}}
                         {{--                        <x-Ui::table.cell-link :href="$link">{{ $row->opening_qty }}</x-Ui::table.cell-link>--}}
